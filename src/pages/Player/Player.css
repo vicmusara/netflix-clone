@@ -1,0 +1,87 @@
+.player {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.player img {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.player iframe {
+    border-radius: 10px;
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+}
+
+/* Small screens (e.g., mobile devices) */
+@media (max-width: 600px) {
+    .player {
+        padding: 10px;
+    }
+
+    .player img {
+        width: 20px; /* Adjust back arrow size */
+    }
+
+    .player iframe {
+        width: 100%;  /* Make the video full-width */
+        height: 200px; /* Set a fixed height for smaller screens */
+    }
+
+    .player-info p {
+        font-size: 12px; /* Smaller text size for small screens */
+        text-align: center; /* Center text on small screens */
+    }
+}
+
+/* Medium screens (e.g., tablets) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .player {
+        padding: 15px;
+    }
+
+    .player img {
+        width: 25px; /* Adjust back arrow size */
+    }
+
+    .player iframe {
+        width: 90%; /* Slightly larger video */
+        height: 300px; /* Adjust height */
+    }
+
+    .player-info p {
+        font-size: 14px; /* Medium text size */
+    }
+}
+
+/* Large screens (e.g., laptops, desktops) */
+@media (min-width: 1025px) {
+    .player {
+        padding: 20px;
+    }
+
+    .player img {
+        width: 30px; /* Larger back arrow */
+    }
+
+    .player iframe {
+        width: 80%;  /* Larger video but not full width */
+        height: 450px; /* Taller video */
+    }
+
+    .player-info p {
+        font-size: 16px; /* Larger text size */
+    }
+}
