@@ -44,7 +44,7 @@ const Player = () => {
     }, [fetchData]);
 
     const handleBackClick = useCallback(() => {
-        navigate("/");
+        navigate("-2");
     }, [navigate]);
 
     if (loading) {
