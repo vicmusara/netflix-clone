@@ -1,6 +1,6 @@
 import './Player.css';
 import back_arrow_icon from '../../assets/back_arrow_icon.png';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Player = () => {
@@ -19,39 +19,45 @@ const Player = () => {
         },
     };
 
-    useEffect(() => {
-        setLoading(true);  // Reset loading state
-        setError(null);    // Reset error state
-        setApiData(null);  // Reset API data state
-
+    const fetchData = useCallback(() => {
+        setLoading(true);
+        setError(null);
         fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, options)
             .then(response => response.json())
             .then(response => {
                 if (response.results && response.results.length > 0) {
-                    setApiData(response.results[0]); // Set the first result
+                    setApiData(response.results[0]);
                 } else {
-                    setApiData({}); // Set to empty object if no results
+                    setApiData({});
                 }
-                setLoading(false); // Set loading to false after data is fetched
+                setLoading(false);
             })
             .catch(err => {
                 console.error(err);
                 setError('Failed to load data');
                 setLoading(false);
             });
-    }, [id]); // Depend on `id` to trigger a re-render
+    }, [id, options]);
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
+
+    const handleBackClick = useCallback(() => {
+        navigate("/");
+    }, [navigate]);
 
     if (loading) {
-        return <div>Loading...</div>; // Show loading state
+        return <div>Loading...</div>;
     }
 
     if (error) {
-        return <div>{error}</div>; // Show error message
+        return <div>{error}</div>;
     }
 
     return (
         <div className="player">
-            <img src={back_arrow_icon} alt="back" onClick={() => navigate("/")} />
+            <img src={back_arrow_icon} alt="back" onClick={handleBackClick} />
             {apiData && apiData.key ? (
                 <iframe
                     width='90%'
@@ -62,7 +68,7 @@ const Player = () => {
                     allowFullScreen
                 ></iframe>
             ) : (
-                <p>Trailer not available</p> // Handle case where trailer key is not available
+                <p>Trailer not available</p>
             )}
             <div className="player-info">
                 <p>{apiData && apiData.published_at ? apiData.published_at.slice(0, 10) : 'N/A'}</p>
