@@ -7,9 +7,9 @@ const Player = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const [apiData, setApiData] = useState(null); // Set initial state to null
-    const [loading, setLoading] = useState(true); // Add loading state
-    const [error, setError] = useState(null); // Add error state
+    const [apiData, setApiData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const options = {
         method: 'GET',
@@ -20,6 +20,10 @@ const Player = () => {
     };
 
     useEffect(() => {
+        setLoading(true);  // Reset loading state
+        setError(null);    // Reset error state
+        setApiData(null);  // Reset API data state
+
         fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, options)
             .then(response => response.json())
             .then(response => {
@@ -35,7 +39,7 @@ const Player = () => {
                 setError('Failed to load data');
                 setLoading(false);
             });
-    }, [id]);
+    }, [id]); // Depend on `id` to trigger a re-render
 
     if (loading) {
         return <div>Loading...</div>; // Show loading state
