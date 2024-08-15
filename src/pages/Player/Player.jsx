@@ -47,7 +47,7 @@ const Player = () => {
 
     return (
         <div className="player">
-            <img src={back_arrow_icon} alt="back" onClick={() => navigate('/')} />
+            <img src={back_arrow_icon} alt="back" onClick={() => navigate(-1)} />
             {apiData && apiData.key ? (
                 <iframe
                     width='90%'
