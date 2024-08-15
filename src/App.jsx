@@ -28,7 +28,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={ <Home/> } />
                 <Route path="/login" element={ <Login/> } />
-                <Route path="/player/:id" element={ <Player/> } />
+                <Route path="/player/:id" element={ <Player key={window.location.pathname}/> } />
             </Routes>
         </div>
     );
